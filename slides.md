@@ -380,14 +380,6 @@ backgroundSize: inherit
 ---
 
 ---
-src: ./slides/ui-state.md
----
-
----
-src: ./slides/service-with-a-signal.md
----
-
----
 transition: view-transition
 ---
 
