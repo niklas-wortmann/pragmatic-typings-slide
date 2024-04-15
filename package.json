@@ -1,0 +1,19 @@
+{
+  "name": "pragmatic typings",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "0.48.3",
+    "@slidev/theme-default": "latest",
+    "@slidev/theme-seriph": "latest",
+    "vue": "^3.4.21",
+    "slidev-theme-wordman": "0.0.3",
+    "prettier-plugin-slidev": "1.0.5",
+    "onu-ui": "^1.0.14-beta.2"
+  }
+}
