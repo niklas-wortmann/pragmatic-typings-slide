@@ -17,441 +17,524 @@ transition: slide-left
 favicon: ./favicon.png
 ---
 
-# Reactivity in Angular Applications
+# Pragmatic Typings
+## Patterns to Reduce Friction and Spark Joy
 
-Signals vs Observables
+<img src="ts-logo.png" style="scale: 0.3; position: absolute; top: 20px; left: -160px;"  alt="">
 
-<style>
-p {
-  margin-top: 1.5rem !important;
-  font-size: 2.5rem;
-  color: var(--onu-colors-cyan800);
+---
+---
+
+````md magic-move
+```ts
+interface Person {
+    name: string;
+    age: number;
 }
-</style>
-
----
-layout: quote
-author: George Santayana
-quote: Those who cannot remember the past are condemned to repeat it.
-image: ./george-santayana.jpg
----
-
-# Those who cannot remember the past are condemned to repeat it.
-
----
-layout: image-left
-image: ./headshot.png
----
-
-<div class='flex items-center h-full'>
-  <div class="grid grid-cols-2 gap-4">
-    <card title='Developer Advocate' imagePath='jbLogo.png' imageAlt='JetBrains Logo'></card>
-    <card title='Core Team Member' imagePath='rxLogo.png' imageAlt='RxJS Logo'></card>
-    <card title='GDE' imagePath='angularLogo.png' imageAlt='Angular Logo'></card>
-    <card title='Host' imagePath='podcastLogo.png' imageAlt='Angular Plus Show Podcast Logo'></card>
-  </div>
-</div>
-
----
-transition: view-transition
----
-
-<div class='flex w-full h-full items-center justify-center'>
-  <div class='text-6xl pr-1' style='view-transition-name: left'> Reactive </div>
-  <div class='text-6xl pl-1' style='view-transition-name: right'> Primitive </div>
-</div>
-
----
-transition: view-transition
----
-
-<div class='flex flex-col h-full'>
-  <div class='flex w-full items-center justify-around'>
-    <div class='text-4xl pr-1' style='view-transition-name: left'> Reactive </div>
-    <div class='text-4xl pl-1' style='view-transition-name: right'> Primitive </div>
-  </div>
+```
+ 
+```ts
+type GetState<ThunkApiConfig> = ThunkApiConfig extends {
+  state: infer State
+}
+  ? State
+  : unknown
   
-  <div class='flex w-full items-center justify-around flex-1'>
-    <div style='view-transition-name: left-text'></div>
-    <div  style='view-transition-name: right-text'></div>
-  </div>
-</div>
+type GetExtra<ThunkApiConfig> = ThunkApiConfig extends { extra: infer Extra }
+  ? Extra
+  : unknown
+  
+type GetDispatch<ThunkApiConfig> = ThunkApiConfig extends {
+  dispatch: infer Dispatch
+}
+  ? FallbackIfUnknown<
+      Dispatch,
+      ThunkDispatch<
+        GetState<ThunkApiConfig>,
+        GetExtra<ThunkApiConfig>,
+        AnyAction
+      >
+    >
+  : ThunkDispatch<GetState<ThunkApiConfig>, GetExtra<ThunkApiConfig>, AnyAction>
+```
+````
 
 ---
-transition: view-transition
+layout: center
 ---
 
-<div class='flex flex-col h-full'>
-  <div class='flex w-full items-center justify-around'>
-    <div class='text-4xl pr-1' style='view-transition-name: left'> Reactive </div>
-    <div class='text-4xl pl-1 text-gray-600' style='view-transition-name: right'> Primitive </div>
-  </div>
+<img src="ts-meme.png" style="scale: 0.8" alt="">
 
-  <div class='flex w-full items-center justify-around flex-1'>
-    <div style='view-transition-name: left-text' class='flex-1'>
-      <ul>
-        <li>Propagation of Change</li>
-        <li>react to data changes/events</li>
-      </ul>
-    </div>
-    <div  style='view-transition-name: right-text' class='flex-1'></div>
-  </div>
-</div>
 
 ---
-transition: view-transition
+layout: center
 ---
 
-<div class='flex flex-col h-full'>
-  <div class='flex w-full items-center justify-around'>
-    <div class='text-4xl pr-1 text-gray-600' style='view-transition-name: left'> Reactive </div>
-    <div class='text-4xl pl-1' style='view-transition-name: right'> Primitive </div>
-  </div>
+<img src="ts-meme-2.jpg" style="scale: 0.6" alt="">
 
-  <div class='flex w-full items-center justify-around flex-1'>
-    <div style='view-transition-name: left-text' class='text-gray-600 flex-1'>
-      <ul>
-        <li>Propagation of Change</li>
-        <li>react to data changes/events</li>
-      </ul>
-    </div>
-    <div  style='view-transition-name: right-text' class='flex-1'>
-      <ul>
-        <li>"a pre-Renaissance painter"</li>
-      </ul>
-    </div>
-  </div>
-</div>
 
 ---
-transition: view-transition
+layout: introduction
 ---
-
-<div class='flex flex-col h-full'>
-  <div class='flex w-full items-center justify-around'>
-    <div class='text-4xl pr-1 text-gray-600' style='view-transition-name: left'> Reactive </div>
-    <div class='text-4xl pl-1' style='view-transition-name: right'> Primitive </div>
-  </div>
-
-  <div class='flex w-full items-center justify-around flex-1'>
-    <div style='view-transition-name: left-text' class='text-gray-600 flex-1'>
-      <ul>
-        <li>Propagation of Change</li>
-        <li>react to data changes/events</li>
-      </ul>
-    </div>
-    <div  style='view-transition-name: right-text' class='flex-1'>
-      <ul>
-        <li>Fundamental Data Type</li>
-        <li>First-Class support</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
----
-transition: view-transition
----
-
-<div class='flex flex-col h-full'>
-  <div class='flex w-full items-center justify-around'>
-    <div class='text-4xl pr-1' style='view-transition-name: left'> Signals </div>
-    <div class='text-4xl pl-1' style='view-transition-name: right'> Observables </div>
-  </div>
-
-  <div class='flex w-full items-center justify-around flex-1'>
-    <div style='view-transition-name: left-text' class='flex-1'>
-    </div>
-    <div style='view-transition-name: right-text' class='flex-1'></div>
-  </div>
-</div>
-
----
-transition: view-transition
----
-
-<div class='flex flex-col h-full'>
-  <div class='flex w-full items-center justify-around'>
-    <div class='text-4xl pr-1' style='view-transition-name: left'> Signals </div>
-    <div class='text-4xl pl-1 text-gray-600' style='view-transition-name: right'> Observables </div>
-  </div>
-
-  <div class='flex w-full items-center justify-around flex-1'>
-    <div style='view-transition-name: left-text' class='flex-1'>
-      <ul>
-        <li>synchronous</li>
-        <li>imperative</li>
-        <li>publicly exposed producer</li>
-      </ul>
-    </div>
-    <div style='view-transition-name: right-text' class='flex-1'></div>
-  </div>
-</div>
-
----
-
-<div class='flex flex-col h-full'>
-  <div class='flex w-full items-center justify-around'>
-    <div class='text-4xl pr-1 text-gray-600' style='view-transition-name: left'> Signals </div>
-    <div class='text-4xl pl-1' style='view-transition-name: right'> Observables </div>
-  </div>
-
-  <div class='flex w-full items-center justify-around flex-1'>
-    <div style='view-transition-name: left-text' class='flex-1 text-gray-600'>
-      <ul>
-        <li>synchronous</li>
-        <li>imperative</li>
-        <li>publicly exposed producer</li>
-      </ul>
-    </div>
-    <div style='view-transition-name: right-text' class='flex-1'>
-      <ul>
-        <li>asynchronous or synchronous</li>
-        <li>declarative</li>
-        <li>hidden producer</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
----
-
-# Let's have a look at Observables
-
----
-
-# Let's have a look at Signals
-
----
-
-<div class='flex flex-col h-full'>
-  <div class='flex w-full items-center justify-around'>
-    <div class='text-4xl pr-1' style='view-transition-name: left'> Signals </div>
-    <div class='text-4xl pl-1' style='view-transition-name: right'> Observables </div>
-  </div>
-  <div class='flex w-full items-center justify-around flex-1'>
-    <div style='view-transition-name: left-text' class='flex-1'>
-      <ul class="list">
-        <li class="list-item">synchronous</li>
-        <li class="list-item">imperative</li>
-        <li class="list-item">publicly exposed producer</li>
-      </ul>
-    </div>
-    <div style='view-transition-name: right-text' class='flex-1'>
-      <ul class="list">
-        <li class="list-item">asynchronous or synchronous</li>
-        <li class="list-item">declarative</li>
-        <li class="list-item">hidden producer</li>
-      </ul>
-    </div>
-  </div>
-</div>
-<div class='absolute w-full h-full' style='top: 45%'>
-  <div class='flex w-full items-center justify-around flex-1'>
-    <div v-motion :initial="{ opacity: 0, rotate: '0deg' }" :enter="{ opacity: 1,  rotate: '-45deg' }" class='text-6xl font-bold text-red-600 rotate-315'>UI State</div>
-    <div v-motion :initial="{ opacity: 0, rotate: '0deg' }" :enter="{ opacity: 1,  rotate: '-45deg' }" class='text-6xl font-bold text-red-600 rotate-315 text-center'>
-        <span>'Everything'</span><br><span>Else</span></div>
-  </div>
-</div>
-
----
-transition: view-transition
----
-
-<div class='flex w-full h-full items-center justify-around flex-col'>
-  <span class='text-4xl'>Fine-Grained Reactivity</span>
-  <span class='text-2xl text-gray-400' style='view-transition-name: conjunction'>vs</span>
-  <span class='text-4xl'>Corse-Grained Reactivity</span>
-</div>
-
----
-
-<div class='flex w-full h-full items-center justify-around flex-col'>
-  <span class='text-4xl'>Fine-Grained Reactivity</span>
-  <span class='text-2xl text-gray-400' style='view-transition-name: conjunction'>and</span>
-  <span class='text-4xl'>Corse-Grained Reactivity</span>
-</div>
 
 ---
 layout: cover
 ---
 
-# But How?
-
+<h1 style="text-align: center">"When Everything is Priority <br> Nothing is Priority" </h1>
 ---
-transition: view-transition
 ---
 
-<h1>Basically *every* Angular Application</h1>
-<div class="flex flex-col items-center justify-center" style="height: calc(100% - 80px); view-transition-name='state-container'">
-</div>
-
-<style>
-.bar {
-    background: white;
-    color: black
-}
-</style>
-
----
-transition: view-transition
----
-
-<h1 style="view-transition-name:'headline'">Basically *every* Angular Application</h1>
-<div class="flex flex-col items-center justify-center" style="height: calc(100% - 80px); view-transition-name:'state-container'">
-    <div class="w-full h-5 flex items-center mb-1 justify-center bar p-6 rounded-md">State</div>
-    <div class="w-full h-5 flex items-center m-1 justify-center bar p-6 rounded-md">Abstraction</div>
-    <div class="w-full h-5 flex items-center m-1 justify-center bar p-6 rounded-md">UI</div>
-</div>
-
-<style>
-.bar {
-    background: white;
-    color: black
-}
-</style>
-
----
-transition: view-transition
----
-
-<h1 style="view-transition-name:'headline'">Signals?</h1>
-<div class="flex flex-col items-center justify-center" style="height: calc(100% - 80px); view-transition-name:'state-container'">
-    <div class="w-full h-5 flex items-center mb-1 justify-center bar p-6 rounded-md" style="view-transition-name:'bar-1'">State</div>
-    <div class="w-full h-5 flex items-center m-1 justify-center bar p-6 rounded-md" style="view-transition-name:'bar-2'">Abstraction</div>
-    <div class="w-full h-5 flex items-center m-1 justify-center bar p-6 rounded-md" style="view-transition-name:'bar-3'">UI</div>
-</div>
-
-<style>
-.bar {
-    background: white;
-    color: black
-}
-</style>
-
----
-transition: view-transition
----
-
-<h1 style="view-transition-name:'headline'">Signals?</h1>
-<div class="flex flex-col items-center justify-center" style="height: calc(100% - 80px); view-transition-name:'state-container'">
-    <div class="w-full h-5 flex items-center mb-1 justify-center bar p-6 rounded-md" style="view-transition-name:'bar-1'">State</div>
-    <div class="w-full h-5 flex items-center m-1 justify-center bar p-6 rounded-md bar-active" style="view-transition-name:'bar-2'">Abstraction</div>
-    <div class="w-full h-5 flex items-center m-1 justify-center bar p-6 rounded-md bar-active" style="view-transition-name:'bar-3'">UI</div>
-</div>
-
-<style>
-.bar {
-    background: white;
-    color: black
+```ts
+interface User {
+    email?: string;
+    password?: string
+    address?: {
+        zipcode?: string;
+        city?: string;
+        country?: string;
+    }
 }
 
-.bar-active {
-    background: var(--onu-colors-cyan400);
-    color: white
-}
-</style>
-
----
-
-<h1 style="view-transition-name:'headline'">Observables?</h1>
-<div class="flex flex-col items-center justify-center" style="height: calc(100% - 80px); view-transition-name:'state-container'">
-    <div class="w-full h-5 flex items-center mb-1 justify-center bar p-6 rounded-md bar-active" style="view-transition-name:'bar-1'">State</div>
-    <div class="w-full h-5 flex items-center m-1 justify-center bar p-6 rounded-md bar-active" style="view-transition-name:'bar-2'">Abstraction</div>
-    <div class="w-full h-5 flex items-center m-1 justify-center bar p-6 rounded-md" style="view-transition-name:'bar-3'">UI</div>
-</div>
-
-<style>
-.bar {
-    background: white;
-    color: black
-}
-
-.bar-active {
-    background: var(--onu-colors-pink700);
-    color: white
-}
-</style>
-
----
-layout: image
-image: ./inception-deeper.gif
-backgroundSize: inherit
----
-
----
-transition: view-transition
----
-
-<h1 style="view-transition-name='slide-headline"> Never Do This </h1>
-<div class='text-8xl absolute z-5' style="color: var(--onu-colors-red600); right: 0; bottom: 165px"><mdi:close-thick /></div>
-
-````md magic-move
-```angular-ts
-@Component({})
-export class AppComponent {
-  private city = signal('Kansas City');
-  private weather = signal({});
-
-  constructor(private weatherService: WeatherService) {
-    effect(async () => {
-      const weather = await this.weatherService.getWeather(this.city());
-      this.weather.set(weather)
-    }, {allowSignalWrites: true});
-  }
-}
+const country = user?.address?.country 
 ```
 
-```angular-ts
-@Injectable()
-export class AppComponent {
-  private city = signal('Kansas City');
-  private weather = signal({});
+---
+layout: center
+---
 
-  constructor(private weatherService: WeatherService) {
-    effect(async () => {
-      const weather = await this.weatherService.getWeather(this.city());
-      this.weather.set(weather)
-    }, {allowSignalWrites: true});
-  }
+# Why even Bother with TypeScript?!
+
+---
+layout: center
+---
+
+# Lesson 0: Be Intentional!
+
+---
+layout: center
+---
+
+<h1 style="text-align: center"> Duck Typing </h1>
+
+## If it walks like a duck and talks like a duck, it is a duck
+
+---
+layout: center
+---
+# Set Theory Basics
+<img src="set-theory.webp"/>
+
+---
+---
+
+````md magic-move
+
+```ts
+interface User {
+    email: string;
+    password: string
 }
+
+interface ExternalParty {
+    email: string;
+    ...
+}
+
+type SomeType = User | ExternalParty 
+```
+
+```ts
+interface User {
+    email: string;
+    password: string
+}
+
+interface ExternalParty {
+    email: string;
+    ...
+}
+
+type SomeType = User | ExternalParty // {email: string}
+```
+
+```ts
+interface User {
+    email: string;
+    password: string
+}
+
+interface ExternalParty {
+    email: string;
+    ...
+}
+
+type SomeType = User & ExternalParty
+```
+
+```ts
+interface User {
+    email: string;
+    password: string
+}
+
+interface ExternalParty {
+    email: string;
+    ...
+}
+
+type SomeType = User & ExternalParty // {email: string, password: string, ...}
 ```
 ````
 
 ---
-preload: false
+layout: cover
 ---
 
-<h1 style="view-transition-name='slide-headline"> Do This Instead </h1>
-<div class='text-8xl absolute z-5' style="color: var(--onu-colors-green600); right: 0; bottom: 165px"><mdi:check-thick v-motion v-motion-roll-visible-right/></div>
+# Lesson #1: Types too Strict
 
-```console
-$ ng add ngxtension
-```
+---
+layout: cover
+---
 
-```angular-ts
-import { computedAsync } from 'ngxtension/computed-async';
-
-@Component({})
-export class AppComponent {
-  private city = signal('Kansas City');
-  private weather = computedAsync(() => this.weatherService.getWeather(this.city()));
+````md magic-move
+```ts
+function sendEmail(user: User) {
+    // take email property and call external api to send email with certain text
 }
 ```
 
-<style>
-.shiki {margin-bottom: 2.5rem}
+```ts
+function sendEmail(user: User) {
+    // take email property and call external api to send email with certain text
+}
 
-h1 {margin-bottom: 2rem!important;}
+const user: User;
+sendEmail(user) // ✅
+```
+
+```ts
+function sendEmail(user: User) {
+    // take email property and call external api to send email with certain text
+}
+
+const company: Company;
+sendEmail(company) // ❌
+```
+
+```ts
+function sendEmail(user: User | Company) {
+    // take email property and call external api to send email with certain text
+}
+
+const user: User;
+sendEmail(user) // ✅
+
+const company: Company;
+sendEmail(company) // ✅
+```
+
+```ts
+function sendEmail(user: {email: string}) {
+    // take email property and call external api to send email with certain text
+}
+
+const user: User;
+sendEmail(user) // ✅
+
+const company: Company;
+sendEmail(company) // ✅
+```
+````
+
+---
+transition: view-transition
+layout: center
+---
+
+<h1 style="view-transition-name: 'headline'">MVT </h1>
+
+---
+transition: view-transition
+layout: center
+---
+
+<h1 style="view-transition-name: 'headline'">Minimal Viable Type </h1>
+
+---
+layout: cover
+---
+
+# Lesson #2: Reuse and Repurpose
+
+---
+layout: cover
+---
+
+````md magic-move
+```ts
+interface User {
+    name: string;
+    address: string;
+    postCode: string;
+}
+```
+
+```ts
+interface User {
+    name: string;
+    address: string;
+    postCode: string;
+    id: string;
+}
+```
+
+```ts
+interface User {
+    name: string;
+    address: string;
+    postCode: string;
+    id: string;
+}
+
+function getUser(id: string): User;
+```
+
+```ts
+interface User {
+    name: string;
+    address: string;
+    postCode: string;
+    id: string;
+}
+
+function getUser(id: string): User;
+
+function createUser(user: User): User; // ❌ What about the ID?
+```
+````
+
+---
+layout: center
+---
+
+# Utility Types to the Rescue
+
+---
+layout: cover
+---
+
+````md magic-move
+
+```ts
+interface User {
+    name: string;
+    address: string;
+    postCode: string;
+    id: string;
+}
+
+export type CreateUser = Exclude<User, "id">;
+```
+
+```ts
+interface User {
+    name: string;
+    address: string;
+    postCode: string;
+    id: string;
+}
+
+export type CreateUser = Exclude<User, "id">;
+
+export type AlternativeUser = Pick<User, "name" | "address" | "postCode">
+```
+
+```ts
+interface ID {
+    id: string;
+}
+
+interface CreateUser {
+    name: string;
+    address: string;
+    postCode: string;
+}
+
+type User = ID & CreateUser;
+```
+````
+
+---
+layout: center
+---
+
+# Spaghetti & Lasagne Code
+
+---
+layout: center
+---
+
+# Lasagne Rule
+<h2 v-click>Don't have more than 3 (Type) Layers</h2>
+
+---
+layout: cover
+animation: view-transition
+---
+
+<h1 style="view-transition-name: const"> Lesson #3 As Const makes Things easy </h1>
+
+---
+layout: cover
+---
+
+<h1 style="view-transition-name: const"> Lesson #3 As Const makes Things easier </h1>
+
+
+---
+layout: cover
+---
+
+<h1>Let's look at some <a class='color-primary italic' href="webstorm://">Code</a>!</h1> 
+
+<style>
+    a:hover {
+        color: #8da8b2 !important;
+    }
 </style>
 
 ---
+layout: cover
+transition: view-transition
+---
 
-# Thanks for Listening 🙏
+<h1 style="view-transition-name: 'generic-headline'"> Lesson #4 Use Generics 🤯 </h1>
 
-<div class="flex w-full items-center justify-center">
-    <a href="https://wordman.dev/talk/2024/ngconf">
-        <qrcode value="https://wordman.dev/talk/2024/ngconf" class="mb-2 mt-2"> </qrcode>
-        <span>https://wordman.dev/talk/2024/ngconf</span>
+---
+layout: cover
+transition: view-transition
+---
+
+<h1 style="view-transition-name: 'generic-headline'"> Lesson #4 Use Generics Properly </h1>
+
+---
+layout: cover
+---
+
+````md magic-move
+```ts
+export class Widget<
+    Source extends Datasource,
+    Type extends WidgetType,
+    Handler extends ErrorHandling,
+    Child extends Widget,
+    ...
+> {}
+```
+
+```ts
+export class Widget<
+    T extends Datasource,
+    U extends WidgetType,
+    V extends ErrorHandling,
+    W extends Widget,
+    ...
+> {}
+```
+
+```ts
+export class Widget<
+    T extends Datasource,
+    U extends WidgetType,
+    V extends ErrorHandling,
+    W extends Widget,
+    ...
+> {}
+```
+
+```ts
+export type PartialOrValue<TValue> = TValue extends object
+	? Partial<TValue>
+	: TValue;
+export type Reducer<TValue, TNext> = (
+	previous: TValue,
+	next: TNext,
+) => PartialOrValue<TValue>;
+
+type ConnectedSignal<TSignalValue> = {
+	with<TObservableValue extends PartialOrValue<TSignalValue>>(
+		observable: Observable<TObservableValue>,
+	): ConnectedSignal<TSignalValue>;
+	with<TObservableValue>(
+		observable: Observable<TObservableValue>,
+		reducer: Reducer<TSignalValue, TObservableValue>,
+	): ConnectedSignal<TSignalValue>;
+	with<TOriginSignalValue extends PartialOrValue<TSignalValue>>(
+		originSignal: () => TOriginSignalValue,
+	): ConnectedSignal<TSignalValue>;
+	subscription: Subscription;
+};
+```
+````
+
+---
+layout: center
+---
+
+# Libraries can have Complex Types
+<h2 v-click> Your fancy CRUD App is not a Library </h2>
+
+---
+layout: quote
+quote: Type Parameters Should Appear Twice
+image: /effective-typescript-cover.jpeg
+link: https://effectivetypescript.com/2020/08/12/generics-golden-rule/
+---
+
+---
+layout: quote
+quote: Remove the noun 'generic' from your vocabulary. Replace it with 'type argument' and 'type parameter'.
+image: /no-thing-as-a-generic.png
+backgroundSize: contain
+link: https://www.totaltypescript.com/no-such-thing-as-a-generic
+---
+
+---
+layout: cover
+---
+
+<h1>Let's look at some <a class='color-primary italic' href="webstorm://">Code</a>!</h1> 
+
+<style>
+    a:hover {
+        color: #8da8b2 !important;
+    }
+</style>
+
+---
+---
+
+<div class="flex items-center justify-around flex-col h-full">
+    <h1>Free WebStorm License*</h1>
+    <a href="https://www.jetbrains.com/store/redeem/?product=WS&coupon=KCMEETUP">
+        <qrcode value="https://www.jetbrains.com/store/redeem/?product=WS&coupon=KCMEETUP" />
+<span>       https://www.jetbrains.com/store/redeem/?product=WS&coupon=KCMEETUP</span>
     </a>
+    <span>* For 6 Months</span>
 </div>
+
+<style>
+a {
+    width: fit-content;
+    height: fit-content;
+    display: contents;
+    text-decoration: none;
+    border: none
+}
+</style>
+
+---
+layout: outro
+url: https://wordman.dev/talk/2024/kcjs
+---

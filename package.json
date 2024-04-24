@@ -1,5 +1,5 @@
 {
-  "name": "pragmatic typings",
+  "name": "pragmatic-typings",
   "type": "module",
   "private": true,
   "scripts": {
@@ -12,8 +12,7 @@
     "@slidev/theme-default": "latest",
     "@slidev/theme-seriph": "latest",
     "vue": "^3.4.21",
-    "slidev-theme-wordman": "0.0.3",
-    "prettier-plugin-slidev": "1.0.5",
-    "onu-ui": "^1.0.14-beta.2"
+    "slidev-theme-wordman": "0.0.7",
+    "prettier-plugin-slidev": "1.0.5"
   }
 }
