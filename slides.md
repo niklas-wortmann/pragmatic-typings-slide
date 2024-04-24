@@ -20,7 +20,7 @@ favicon: ./favicon.png
 # Pragmatic Typings
 ## Patterns to Reduce Friction and Spark Joy
 
-<img src="ts-logo.png" style="scale: 0.3; position: absolute; top: 20px; left: -160px;"  alt="">
+<img src="/ts-logo.png" style="scale: 0.3; position: absolute; top: 20px; left: -160px;"  alt="">
 
 ---
 ---
@@ -63,14 +63,14 @@ type GetDispatch<ThunkApiConfig> = ThunkApiConfig extends {
 layout: center
 ---
 
-<img src="ts-meme.png" style="scale: 0.8" alt="">
+<img src="/ts-meme.png" style="scale: 0.8" alt="">
 
 
 ---
 layout: center
 ---
 
-<img src="ts-meme-2.jpg" style="scale: 0.6" alt="">
+<img src="/ts-meme-2.jpg" style="scale: 0.6" alt="">
 
 
 ---
@@ -123,7 +123,7 @@ layout: center
 layout: center
 ---
 # Set Theory Basics
-<img src="set-theory.webp"/>
+<img src="/set-theory.webp"/>
 
 ---
 ---
