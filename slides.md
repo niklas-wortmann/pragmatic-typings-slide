@@ -109,7 +109,7 @@ layout: center
 layout: center
 ---
 
-# Lesson 0: Be Intentional!
+# Lesson #0: Be Intentional!
 
 ---
 layout: center
@@ -366,10 +366,10 @@ type User = ID & CreateUser;
 ````
 
 ---
-layout: center
 ---
 
-# Spaghetti & Lasagne Code
+
+<img src="/spaghetti-lasagne.png">
 
 ---
 layout: center
@@ -380,7 +380,7 @@ layout: center
 
 ---
 layout: cover
-animation: view-transition
+transition: view-transition
 ---
 
 <h1 style="view-transition-name: const"> Lesson #3 As Const makes Things easy </h1>
@@ -493,6 +493,11 @@ link: https://effectivetypescript.com/2020/08/12/generics-golden-rule/
 ---
 
 ---
+---
+
+<img src="/eslint-golden-rule-pr.png">
+
+---
 layout: quote
 quote: Remove the noun 'generic' from your vocabulary. Replace it with 'type argument' and 'type parameter'.
 image: /no-thing-as-a-generic.png
@@ -511,30 +516,144 @@ layout: cover
         color: #8da8b2 !important;
     }
 </style>
+---
+layout: cover 
+---
+
+# Lesson 5: TypeScript@Latest is Overrated
+
+---
+---
+   
+<Tweet id="1679173438974443530"  />
+
+<a href="https://www.learningtypescript.com/articles/why-typescript-doesnt-follow-strict-semantic-versioning" target="_blank">Full Blog Post </a>
+
+---
+layout: center
+---
+
+<img src="/java21.webp">
+
+---
+layout: center
+---
+
+# You don't need to run the latest and greatest!
+
+---
+layout: cover
+---
+
+# Lesson 6: You Shouldn't use Enums
 
 ---
 ---
 
-<div class="flex items-center justify-around flex-col h-full">
-    <h1>Free WebStorm License*</h1>
-    <a href="https://www.jetbrains.com/store/redeem/?product=WS&coupon=KCMEETUP">
-        <qrcode value="https://www.jetbrains.com/store/redeem/?product=WS&coupon=KCMEETUP" />
-<span>       https://www.jetbrains.com/store/redeem/?product=WS&coupon=KCMEETUP</span>
-    </a>
-    <span>* For 6 Months</span>
-</div>
+<a href="https://www.wordman.dev/blog/typescript-enums/" target="_blank"><img src="/ts-enums.png"></a>
+
+---
+---
+
+<h1>TLDR;</h1>
+
+<ul class="adjusted-list">
+    <li class="p-4">Bundle Size</li>
+    <li class="p-4" v-click>Not JavaScript Standard</li>
+    <li class="p-4" v-click>No Single File Compilation</li>
+    <li class="p-4" v-click>No Benefit over *-Literal Types</li>
+</ul>
 
 <style>
-a {
-    width: fit-content;
-    height: fit-content;
-    display: contents;
-    text-decoration: none;
-    border: none
-}
+   
 </style>
 
 ---
+---
+
+````md magic-move
+```ts
+export enum HttpStatusCode {
+    OK = 200,
+    BAD_REQUEST = 400,
+    UNAUTHORIZED = 401,
+    FORBIDDEN = 403,
+    NOT_FOUN = 404,
+    INTERNAL_SERVER_ERROR = 500,
+};
+```
+
+```ts
+export const enum HttpStatusCode {
+    OK = 200,
+    BAD_REQUEST = 400,
+    UNAUTHORIZED = 401,
+    FORBIDDEN = 403,
+    NOT_FOUN = 404,
+    INTERNAL_SERVER_ERROR = 500,
+};
+```
+
+```ts {*|1-6|8-15|17-18}
+export const HttpStatusCode_OK = 200;
+export const HttpStatusCode_BAD_REQUEST = 400;
+export const HttpStatusCode_UNAUTHORIZED = 401;
+export const HttpStatusCode_FORBIDDEN = 403;
+export const HttpStatusCode_NOT_FOUND = 404;
+export const HttpStatusCode_INTERNAL_SERVER_ERROR = 500;
+
+export const ALL_HTTP_STATUS_CODES = [
+  HttpStatusCode_OK,
+  HttpStatusCode_BAD_REQUEST,
+  HttpStatusCode_UNAUTHORIZED,
+  HttpStatusCode_FORBIDDEN,
+  HttpStatusCode_NOT_FOUND,
+  HttpStatusCode_INTERNAL_SERVER_ERROR,
+] as const;
+
+export type HttpStatusCodes = typeof ALL_HTTP_STATUS_CODES[number]
+// same as type HttpStatusCode = 200 | 400 | 401 | 403 | 404 | 500
+```
+````
+
+---
+layout: cover
+---
+
+# Lesson 7: Use Proper Tools
+
+---
+---
+
+<a href="https://eslint.org/">
+    <img src="/eslint.gif" class="absolute top-0 left-0 z-20">
+</a>
+---
+---
+<a href="https://www.jetbrains.com/qodana/">
+    <img src="/qodana.png" class="absolute top-0 left-0 z-20">
+</a>
+---
+---
+
+# Summary
+
+<div class="grid-cols-2 grid">
+    <ul class="adjusted-list">
+        <li class="p-4">Be Intentional!</li>
+        <li class="p-4" v-click>Types too Strict</li>
+        <li class="p-4" v-click>Reuse and Repurpose</li>
+        <li class="p-4" v-click>As Const makes Things easier</li>
+    </ul>
+    <ul class="adjusted-list">
+        <li v-click class="p-4">Use Generics Properly</li>
+        <li class="p-4" v-click>TypeScript@Latest is Overrated</li>
+        <li class="p-4" v-click>You Shouldn't use Enums</li>
+        <li class="p-4" v-click>Use Proper Tools</li>
+    </ul>
+</div>
+
+---
 layout: outro
-url: https://wordman.dev/talk/2024/kcjs
+url: https://wordman.dev/talk/2024/techorama
 ---
