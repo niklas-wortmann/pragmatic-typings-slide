@@ -625,6 +625,13 @@ layout: cover
 ---
 ---
 
+<a href="https://www.jetbrains.com/webstorm/">
+    <img src="/ts-pretty-errors.png" class="absolute top-0 left-0 z-20">
+</a>
+
+---
+---
+
 <a href="https://eslint.org/">
     <img src="/eslint.gif" class="absolute top-0 left-0 z-20">
 </a>
@@ -633,6 +640,13 @@ layout: cover
 <a href="https://www.jetbrains.com/qodana/">
     <img src="/qodana.png" class="absolute top-0 left-0 z-20">
 </a>
+---
+---
+
+<a href="https://github.com/michaelangeloio/does-it-throw?tab=readme-ov-file">
+    <img src="/does-it-throw.png" class="absolute top-0 left-0 z-20">
+</a>
+
 ---
 ---
 
