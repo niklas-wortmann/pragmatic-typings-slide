@@ -11,16 +11,18 @@ defaults:
   layout: default
 title: Pragmatic Typings - Patterns to Reduce Friction and Spark Joy
 monaco: false
-layout: cover
+layout: image
 mdc: true
 transition: slide-left
 favicon: ./favicon.png
+image: /title.png
 ---
 
-# Pragmatic Typings
-## Patterns to Reduce Friction and Spark Joy
+<div style="position: absolute; margin: auto; bottom: 80px; left: 190px;">
+    <h1 style="font-size: 3.2rem;color: #e42d30;"> Pragmatic Typings</h1>
+    <h2>Patterns to Reduce Friction and Spark Joy</h2>
+</div>
 
-<img src="/ts-logo.png" style="scale: 0.3; position: absolute; top: 20px; left: -160px;"  alt="">
 
 ---
 ---
@@ -666,6 +668,58 @@ layout: cover
         <li class="p-4" v-click>Use Proper Tools</li>
     </ul>
 </div>
+
+---
+layout: center
+---
+
+# Bonus
+
+---
+layout: center
+---
+
+# Branded Types
+
+---
+---
+
+````md magic-move
+```ts
+type Something = Brand<string, "Something">
+```
+
+```ts
+type Email = Brand<string, "Email">
+type Password = Brand<string, "Password">
+type UserID = Brand<string, "UserID">
+```
+
+```ts
+const updateUser = (id: UserID): User;
+
+updateUser("someID") // ❌ compile error 
+updateUser("someID" as UserID) // ✅ happy compiler, happy life 
+```
+
+```ts
+const isPassword = (val: string): val is Password => {
+     return val.length > 6;
+}
+```
+
+```ts
+const assertEmail = (val: string): asserts val is Email => {
+  if (!value.includes("@") throw new Error("That doesn't look like an Email")
+}
+```
+````
+
+---
+layout: center
+---
+
+# No More Working on Wrong IDs!!!!
 
 ---
 layout: outro
