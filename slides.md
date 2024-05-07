@@ -696,6 +696,17 @@ type UserID = Brand<string, "UserID">
 ```
 
 ```ts
+declare const brand: unique symbol;
+
+type Brand<T, TBrand extends string> = T & {
+    [brand]: TBrand
+} 
+
+// credit to Matt Pocock 
+// https://twitter.com/mattpocockuk/status/1625173887590842369/photo/1
+```
+
+```ts
 const updateUser = (id: UserID): User;
 
 updateUser("someID") // ❌ compile error 
